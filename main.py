@@ -30,7 +30,7 @@ blacklist = load_blacklist()
 
 
 # Обробник команди для додавання імені до чорного списку
-@bot.message_handler (commands=['add'])
+@bot.message_handler(commands=['add'])
 def add_word_to_blacklist(message):
     word = message.text.split(maxsplit=1)[1].lower()
     if word not in blacklist:

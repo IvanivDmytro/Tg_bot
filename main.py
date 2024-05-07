@@ -1,5 +1,9 @@
 import telebot
+import logging
 from myignor import bot_token
+
+# Налаштування логування
+logging.basicConfig(filename='bot.log', format='%(asctime)s - %(levelname)s - %(message)s', level=logging.ERROR)
 
 
 # Шлях до файлу зі списком чорних слів
@@ -8,6 +12,8 @@ blacklist_file = 'blacklist.txt'
 
 # Ініціалізація бота
 bot = telebot.TeleBot(bot_token)
+
+
 
 
 # Функція для завантаження списку людей з файлу
@@ -37,12 +43,7 @@ def add_word_to_blacklist(message):
         blacklist.append(word)
         save_blacklist(blacklist)
         bot.reply_to(message, f" '{word}' додано до чорного списку.")
-    else:
-        bot.reply_to(message, f" '{word}' вже є в чорному списку.")
-    # Оновлення чорного списку або збереження у файл, якщо потрібно
-    # Наприклад, можна зберегти слово у файлі blacklist.txt:
-    with open('blacklist.txt', 'a') as f:
-        f.write(word + '\n')
+
 
 
 # Обробник команди для видалення слова з чорного списку
@@ -92,7 +93,7 @@ def handle_hello(message):
 def handle_hello(message):
     bot.reply_to(message, "щоб ти зміг коректно додавати в чорний список або видаляти,\n"
                           "обов'язково потрібно написати  /  після нього потрібне ключове слово\n"
-                          "наприклад /add імя фалілія\n")
+                          "наприклад /add імя фамілія\n")
 
 
 # Обробник команди для відображення списку команд
@@ -114,5 +115,7 @@ def handle_message(message):
         bot.reply_to(message, f"ЗНАЙДЕНО ЗБІГ З ЧОРНИМ СПИСКОМ!!!!: {blacklisted_word}")
 
 
+
 # Запуск бота
 bot.polling(none_stop=True)
+

@@ -15,7 +15,6 @@ bot = telebot.TeleBot(bot_token)
 
 
 
-
 # Функція для завантаження списку людей з файлу
 def load_blacklist():
     try:
